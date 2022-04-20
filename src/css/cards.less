@@ -1,0 +1,70 @@
+#listings {
+    display: flex;
+    justify-content: center;
+}
+
+.cards-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 85%;
+    margin: 50px 0;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 40px;
+    margin: 20px;
+    width: 500px;
+    max-height: 500px;
+
+    img {
+        height: 75%;
+        margin: 20px 0;
+    }
+
+    .name {
+        text-align: center;
+        font-size: 24px;
+    }
+
+    .brand {
+        color: #868686;
+    }
+}
+
+.Yamaha {
+    &:hover {
+        background-color: green;
+        
+        * {
+            color: white;
+        }
+    }
+}
+
+.Fender {
+    &:hover {
+        background-color: red;
+        
+        * {
+            color: white;
+        }
+    }
+}
+
+.Maton {
+    &:hover {
+        background-color: blue;
+        
+        * {
+            color: white;
+        }
+    }
+}
