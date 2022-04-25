@@ -14,57 +14,64 @@
 
 .card {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 40px;
+    align-items: center;
     margin: 20px;
-    width: 500px;
-    max-height: 500px;
 
-    img {
-        height: 75%;
-        margin: 20px 0;
+    .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border: 3px solid black;
+        border-radius: 10px;
+        padding: 40px;
+        width: 500px;
+        max-height: 500px;
+
+        img {
+            height: 75%;
+            margin: 20px 0;
+        }
+    
+        .name {
+            text-align: center;
+            font-size: 24px;
+        }
+    
+        .brand {
+            color: #868686;
+        }
     }
-
-    .name {
-        text-align: center;
-        font-size: 24px;
+    
+    .green {
+        &:hover {
+            background-color: green;
+            
+            * {
+                color: white;
+            }
+        }
     }
-
-    .brand {
-        color: #868686;
+    
+    .red {
+        &:hover {
+            background-color: red;
+            
+            * {
+                color: white;
+            }
+        }
     }
-}
-
-.green {
-    &:hover {
-        background-color: green;
-        
-        * {
-            color: white;
+    
+    .blue {
+        &:hover {
+            background-color: blue;
+            
+            * {
+                color: white;
+            }
         }
     }
 }
 
-.red {
-    &:hover {
-        background-color: red;
-        
-        * {
-            color: white;
-        }
-    }
-}
-
-.blue {
-    &:hover {
-        background-color: blue;
-        
-        * {
-            color: white;
-        }
-    }
-}
