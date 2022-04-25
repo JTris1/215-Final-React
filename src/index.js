@@ -55,81 +55,135 @@ let instruments = [
 ];
 
 function Popup(props) {
-    return (
-        <div className="popup">
-            <img src={props.imgSrc} alt="Instrument"></img>
-            <h1 className="name">{props.name}</h1>
-            <h2 className="brand">{props.brand}</h2>
-        </div>
+    return ReactDOM.createPortal (
+        <>
+            <div className="popup-bg"></div>
+            <div className="popup">
+                <img src={props.imgSrc} alt="Instrument"></img>
+                <h1 className="name">{props.name}</h1>
+                <h2 className="brand">{props.brand}</h2>
+                <button>Add to Cart</button>
+            </div>
+        </>,
+        document.getElementById('portal')
     )
 }
 
-// class Popup extends React.Component {
-//     constructor(props) {
-//         super(props);
-//     }
+class AddToCart extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            show: true
+        };
+    }
 
-//     render() {
-//         return (
-//             <div className="popup">
-//                 <img src={this.props.imgSrc} alt="Instrument"></img>
-//                 <h1 className="name">{this.props.name}</h1>
-//                 <h2 className="brand">{this.props.brand}</h2>
-//             </div>
-//         )
-//     }
-// }
+    toggleElements() {
+        this.props.toggleShow();
+    }
+
+    render() {
+        return(
+            this.state.show ? <button onClick={() => this.toggleElements()}>Add to Cart</button> : null
+        );
+    }
+}
 
 class Item extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             showPopup: false,
+            show: true,
         };
+
+        this.toggleShow = this.toggleShow.bind(this);
+    }
+
+    toggleShow() {
+        this.setState({
+            show: !this.state.show
+        });
+    }
+
+    renderAddToCart(key) {
+        return (
+            <AddToCart key={parseInt(key)} toggleShow={this.toggleShow} />
+        )
     }
 
     renderPopup(imgSrc, name, brand, color) {
-        console.log("invoked")
-        return(
+        return (
             <div>
                 <Popup imgSrc={this.props.imgSrc} name={this.props.name} brand={this.props.brand} color={this.props.color} />
             </div>
         ) 
     }
 
-    render() {
-        let classes = 'card';
+    renderItem() {
+        let classes = 'content';
         classes += ' ' + this.props.color;
-        return (
+        return(
             <div className={classes} onClick={() => this.setState({showPopup : !(this.state.showPopup)})}>
-                <img src={this.props.imgSrc} alt="Instrument"></img>
+                <img
+                    src={this.props.imgSrc} 
+                    alt="Instrument">
+                </img>
                 <h1 className="name">{this.props.name}</h1>
                 <h2 className="brand">{this.props.brand}</h2>
                 {this.state.showPopup ? this.renderPopup() : null}
             </div>
         )
     }
+
+    render() {
+        return (
+            <>
+                {this.state.show ? this.renderItem() : null}
+                {this.state.show ? this.renderAddToCart(1) : null}
+            </>
+        )
+    }
     
 }
 
-// function Item(props) {
-//     let classes = 'card';
-//     classes += ' ' + props.color;
-//     return (
-//         <div className={classes} onClick={renderPopup()}>
-//             <img src={props.imgSrc} alt="Instrument"></img>
-//             <h1 className="name">{props.name}</h1>
-//             <h2 className="brand">{props.brand}</h2>
-//         </div>
-//     )
-// }
-
 class Cards extends React.Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         show: true
+    //     };
+
+    //     // this.toggleShow = this.toggleShow.bind(this);
+    // }
+
+    // toggleShow() {
+    //     this.setState({
+    //         show: !this.state.show
+    //     });
+    //     console.log("toggleShow()")
+    // }
+
+    createItem(key, imgSrc, name, brand, color) {
+        return(
+            <Item key={key} toggleShow={this.toggleShow} imgSrc={imgSrc} name={name} brand={brand} color={color}/>
+        )
+    }
+
+    // createAddToCart(key) {
+    //     return(
+    //         <AddToCart key={parseInt(key)} toggleShow={this.toggleShow} />
+    //     )
+    // }
+
     render() {
         let list = instruments.slice();
         let renderList = [];
         for (let i in list) {
-            renderList.push(<Item key={i} imgSrc={list[i].imgSrc} name={list[i].name} brand={list[i].brand} color={list[i].color} />);
+            renderList.push(
+                <div className="card">
+                    {this.createItem((parseInt(i) + 1), list[i].imgSrc, list[i].name, list[i].brand, list[i].color)}
+                    {/* {this.createAddToCart(parseInt(i) * -1)} */}
+                </div>)
         }
 
         return(
@@ -142,14 +196,9 @@ class Cards extends React.Component {
 
 class Listings extends React.Component {
     render() {
-        let renderPopups = [];
-        for(let i in instruments) {
-            renderPopups.push(<Popup imgSrc={instruments[i].imgSrc} name={instruments[i].name} brand={instruments[i].brand} />)
-        }
         return (
             <div className="listings">
                 <Cards />
-                {renderPopups}
             </div>
         )
     }
