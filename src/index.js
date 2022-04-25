@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style.css';
@@ -51,11 +52,11 @@ let instruments = [
         imgSrc: "assets/img/maton-ebw70c.webp",
         color: "blue"
     }
-]
+];
 
-function Item(props) {
+function Popup(props) {
     return (
-        <div className='card'>
+        <div className="popup">
             <img src={props.imgSrc} alt="Instrument"></img>
             <h1 className="name">{props.name}</h1>
             <h2 className="brand">{props.brand}</h2>
@@ -63,12 +64,72 @@ function Item(props) {
     )
 }
 
+// class Popup extends React.Component {
+//     constructor(props) {
+//         super(props);
+//     }
+
+//     render() {
+//         return (
+//             <div className="popup">
+//                 <img src={this.props.imgSrc} alt="Instrument"></img>
+//                 <h1 className="name">{this.props.name}</h1>
+//                 <h2 className="brand">{this.props.brand}</h2>
+//             </div>
+//         )
+//     }
+// }
+
+class Item extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showPopup: false,
+        };
+    }
+
+    renderPopup(imgSrc, name, brand, color) {
+        console.log("invoked")
+        return(
+            <div>
+                <Popup imgSrc={this.props.imgSrc} name={this.props.name} brand={this.props.brand} color={this.props.color} />
+            </div>
+        ) 
+    }
+
+    render() {
+        let classes = 'card';
+        classes += ' ' + this.props.color;
+        return (
+            <div className={classes} onClick={() => this.setState({showPopup : !(this.state.showPopup)})}>
+                <img src={this.props.imgSrc} alt="Instrument"></img>
+                <h1 className="name">{this.props.name}</h1>
+                <h2 className="brand">{this.props.brand}</h2>
+                {this.state.showPopup ? this.renderPopup() : null}
+            </div>
+        )
+    }
+    
+}
+
+// function Item(props) {
+//     let classes = 'card';
+//     classes += ' ' + props.color;
+//     return (
+//         <div className={classes} onClick={renderPopup()}>
+//             <img src={props.imgSrc} alt="Instrument"></img>
+//             <h1 className="name">{props.name}</h1>
+//             <h2 className="brand">{props.brand}</h2>
+//         </div>
+//     )
+// }
+
 class Cards extends React.Component {
     render() {
         let list = instruments.slice();
         let renderList = [];
         for (let i in list) {
-            renderList.push(<Item key={i} imgSrc={list[i].imgSrc} name={list[i].name} brand={list[i].brand} />);
+            renderList.push(<Item key={i} imgSrc={list[i].imgSrc} name={list[i].name} brand={list[i].brand} color={list[i].color} />);
         }
 
         return(
@@ -81,9 +142,14 @@ class Cards extends React.Component {
 
 class Listings extends React.Component {
     render() {
+        let renderPopups = [];
+        for(let i in instruments) {
+            renderPopups.push(<Popup imgSrc={instruments[i].imgSrc} name={instruments[i].name} brand={instruments[i].brand} />)
+        }
         return (
             <div className="listings">
                 <Cards />
+                {renderPopups}
             </div>
         )
     }
