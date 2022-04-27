@@ -77,13 +77,14 @@ class AddToCart extends React.Component {
         };
     }
 
-    toggleElements() {
+    addToCart() {
         this.props.toggleShow();
+        
     }
 
     render() {
         return(
-            this.state.show ? <button onClick={() => this.toggleElements()}>Add to Cart</button> : null
+            this.state.show ? <button onClick={() => this.addToCart()}>Add to Cart</button> : null
         );
     }
 }
@@ -204,8 +205,42 @@ class Listings extends React.Component {
     }
 }
 
+class CartItem extends React.Component {
+    render() {
+        return ReactDOM.createPortal (
+            <div className="cart-item">
+                <div className="info">
+                    <h3 className="name">{this.props.name}</h3>
+                    <h4 className="brand">{this.props.brand}</h4>
+                    <h4 className="price">{this.props.price}</h4>
+                </div>
+                <button>Remove</button>
+            </div>,
+            document.getElementById("cart-items")
+        )
+    }
+}
+
+class Cart extends React.Component {
+    render() {
+        return (
+            <div className="cart">
+                <div className="header">
+                    <h1>Cart</h1>
+                </div>
+                <div id="cart-items">
+                    {/* ADDED THROUGH PORTAL */}
+                </div>
+            </div>
+        )
+    }
+}
+
 
 ReactDOM.render(
-    <Listings />,
+    <>
+        <Listings />
+        <Cart />
+    </>,
     document.getElementById('root')
   );
