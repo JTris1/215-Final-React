@@ -112,6 +112,8 @@ function Popup(props) {
                 <img src={props.imgSrc} alt="Instrument"></img>
                 <h1 className="name">{props.name}</h1>
                 <h2 className="brand">{props.brand}</h2>
+                <h2 className="price">${props.price}</h2>
+                <h3 className="type">{props.type}</h3>
                 <button onClick={() => props.toggleShow()}>Add to Cart</button>
             </div>
         </>,
@@ -183,7 +185,7 @@ class Item extends React.Component {
     renderPopup(imgSrc, name, brand, color) {
         return (
             <div>
-                <Popup imgSrc={this.props.imgSrc} name={this.props.name} brand={this.props.brand} color={this.props.color} toggleShow={this.toggleShow} />
+                <Popup imgSrc={this.props.imgSrc} name={this.props.name} brand={this.props.brand} price={this.props.price} type={this.props.type} toggleShow={this.toggleShow} />
             </div>
         ) 
     }
@@ -201,6 +203,7 @@ class Item extends React.Component {
                 <h1 className="name">{this.props.name}</h1>
                 <h2 className="brand">{this.props.brand}</h2>
                 <h2 className="price">${this.props.price}</h2>
+                <h3 className="type">{this.props.type}</h3>
                 {this.state.showPopup ? this.renderPopup() : null}
             </div>
         )
@@ -236,9 +239,9 @@ class Cards extends React.Component {
         });
     }
 
-    createItem(key, imgSrc, name, brand, price, color) {
+    createItem(key, imgSrc, name, brand, price, color, type) {
         return(
-            <Item key={key} toggleShow={this.toggleShow} imgSrc={imgSrc} name={name} brand={brand} price={price} color={color}/>
+            <Item key={key} toggleShow={this.toggleShow} imgSrc={imgSrc} name={name} brand={brand} price={price} color={color} type={type}/>
         )
     }
 
@@ -246,7 +249,7 @@ class Cards extends React.Component {
         for (let i in list) {
             renderList.push(
                 <div className="card">
-                    {this.createItem((parseInt(i) + 1), list[i].imgSrc, list[i].name, list[i].brand, list[i].price, list[i].color)}
+                    {this.createItem((parseInt(i) + 1), list[i].imgSrc, list[i].name, list[i].brand, list[i].price, list[i].color, list[i].type)}
                 </div>)
         }
 
