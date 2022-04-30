@@ -1,70 +1,22 @@
-# Getting Started with Create React App
+# 215 Final
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Written in ReactJS
+I tried to learn ReactJS for this assigment because it offered a lot of useful things that pertain to creating and destroying elements. I could not find equivalent features of VueJS, so I abandoned it pretty quickly.
 
-## Available Scripts
+### What Works
+<ul>
+  <li>Instrument rendering</li>
+  <li>Color change on hover</li>
+  <li>Popup for each item</li>
+  <li>Add to cart feature</li>
+  <li>Store is empty message</li>
+</ul>
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### What Doesn't Work
+<ul>
+  <li>Remove all items from cart</li>
+    <ul><li>Tried to figure this one out, but couldn't. Ended up leaving it at an inline button that removes each item clicked.</li></ul>
+  <li>Add Item</li>
+    <ul><li>The popup form works fine, but for whatever reason I cannot get the item to render. I think it is because I am conditionally rendering the popup, so when it gets closed (unrendered), the Item, which becomes a child of Popup, is also unrendered. Not sure if this is the case for sure, but without knowing more about React I have no idea how to try and solve this. Spent way too long trying to make it work so I gave up.</li></ul>
+    <ul><li>I think that if it actually did render the Item correctly, it would render all relevant information fine, and would contain all the required functionality, such as add to cart, hover, and popup.</li></ul>
+</ul>
