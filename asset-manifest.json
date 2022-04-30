@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/215-Final-React/static/css/main.81e42868.css",
+    "main.js": "/215-Final-React/static/js/main.e1befc0d.js",
+    "static/media/Roboto.ttf": "/215-Final-React/static/media/Roboto.a8d6ac03c7b96b7acb62.ttf",
+    "index.html": "/215-Final-React/index.html",
+    "main.81e42868.css.map": "/215-Final-React/static/css/main.81e42868.css.map",
+    "main.e1befc0d.js.map": "/215-Final-React/static/js/main.e1befc0d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.81e42868.css",
+    "static/js/main.e1befc0d.js"
+  ]
+}
