@@ -1,3 +1,9 @@
+//
+//
+// IDEA
+//
+// Move add button to the items container, and then try to render an item. That way no portals are needed on the page (at least I think)
+
 import { render } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -76,13 +82,13 @@ class PopupForm extends React.Component {
         this.props.toggleShow();
 
         return ReactDOM.createPortal (
-            <Item name={name} brand={brand} price={price} />,
-            document.getElementById("cards-wrapper")
+            <Item key={100} name={name} brand={brand} price={price} />,
+            document.getElementById('cards-wrapper')
         );
     }
 
     render() {
-        return ReactDOM.createPortal (
+        return (
             <>
                 <div className="popup-bg"></div>
                 <div className="popup">
@@ -93,8 +99,7 @@ class PopupForm extends React.Component {
                         <button onClick={() => this.addItem()}>Add</button>
                     </div>
                 </div>
-            </>,
-            document.getElementById('portal')
+            </>
         )
     }
 }
@@ -184,6 +189,7 @@ class Item extends React.Component {
     }
 
     renderItem() {
+        console.log("renderItem Method");
         let classes = 'content';
         classes += ' ' + this.props.color;
         return(
@@ -203,6 +209,7 @@ class Item extends React.Component {
     render() {
         return (
             <>
+                {console.log("Render Method")}
                 {this.state.show ? this.renderItem() : null}
                 {list.length === 0 ? this.renderEmptyText() : null}
                 {this.state.show ? this.renderAddToCart(1) : null}
@@ -214,21 +221,20 @@ class Item extends React.Component {
 }
 
 class Cards extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         show: true
-    //     };
+    constructor(props) {
+        super(props);
+        this.state = {
+            showForm: false
+        }
 
-    //     // this.toggleShow = this.toggleShow.bind(this);
-    // }
+        this.toggleShow = this.toggleShow.bind(this);
+    }
 
-    // toggleShow() {
-    //     this.setState({
-    //         show: !this.state.show
-    //     });
-    //     console.log("toggleShow()")
-    // }
+    toggleShow() {
+        this.setState({
+            showForm: !this.state.showForm
+        });
+    }
 
     createItem(key, imgSrc, name, brand, price, color) {
         return(
@@ -236,23 +242,18 @@ class Cards extends React.Component {
         )
     }
 
-    // createAddToCart(key) {
-    //     return(
-    //         <AddToCart key={parseInt(key)} toggleShow={this.toggleShow} />
-    //     )
-    // }
-
     render() {
         for (let i in list) {
             renderList.push(
                 <div className="card">
                     {this.createItem((parseInt(i) + 1), list[i].imgSrc, list[i].name, list[i].brand, list[i].price, list[i].color)}
-                    {/* {this.createAddToCart(parseInt(i) * -1)} */}
                 </div>)
         }
 
         return(
             <div id="cards-wrapper" className="cards-wrapper">
+                {this.state.showForm ? <PopupForm toggleShow={this.toggleShow} /> : null}
+                <button className="add-button" onClick={() => this.toggleShow()}>Add Item</button>
                 {renderList}
             </div>
         );
@@ -292,10 +293,8 @@ class Cart extends React.Component {
     render() {
         return (
             <div className="cart">
-                {this.state.showForm ? <PopupForm toggleShow={this.toggleShow} /> : null}
                 <div className="header">
                     <h1>Cart</h1>
-                    <button onClick={() => this.toggleShow()}>Add Item</button>
                 </div>
                 <div id="cart-items">
                     {/* ADDED THROUGH PORTAL */}
